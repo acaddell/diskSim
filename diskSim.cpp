@@ -65,6 +65,7 @@ void print() {
    numFCFS, numSSTF, numSCAN, numCSCAN, numLOOK, numCLOOK);
 }
 
+/* Need to remove elements that have already been visited from the vector */
 void runSSTF() {
   int currentLocation = initialPosition;
   int nextLocationIndex = 0;
@@ -78,7 +79,7 @@ void runSSTF() {
       }
     }
     currentLocation = cylinders[nextLocationIndex]->location;
-    cylinders.erase(cylinders.begin() + nextLocationIndex);
     numSSTF += minDistance;
+    minDistance = DISK_SIZE;
   }
 }
