@@ -4,7 +4,7 @@ using namespace std;
 
 int main(int argc, char** argv) {
   parseCommandLine(argc, argv);
-
+  runFCFS();
   print();
   return 0;
 }
@@ -48,6 +48,16 @@ void readSequenceFile(string file) {
     cylinders.push_back(new Cylinder(location));
   }
   fclose(sequence);
+}
+
+void runFCFS() {
+  unsigned int distance = 0;
+  int curr_location = initialPosition;
+  for (unsigned int i = 0; i < cylinders.size(); i++) {
+    distance += abs(curr_location - cylinders[i]->location);
+    curr_location = cylinders[i]->location;
+  }
+  numFCFS = distance;
 }
 
 void print() {
