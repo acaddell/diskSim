@@ -5,6 +5,7 @@ using namespace std;
 int main(int argc, char** argv) {
   parseCommandLine(argc, argv);
   runFCFS();
+  runSSTF();
   print();
   return 0;
 }
@@ -64,25 +65,20 @@ void print() {
    numFCFS, numSSTF, numSCAN, numCSCAN, numLOOK, numCLOOK);
 }
 
-int getMinDistance(vector<Cylinder*> temp_cylinders, int currentLocation) {
-  int minDistance = currentLocation - temp_cylinders[0]->location;
-  int index = 0;
-  for(unsigned int i = 1; i < temp_cylinders.size(); i++) {
-    if(minDistance > abs(currentLocation - temp_cylinders[i]->location)) {
-      minDistance = abs(currentLocation - temp_cylinders[i]->location);
-      index = i;
-    }
-  }
-  return index;
-}
-
 void runSSTF() {
   int currentLocation = initialPosition;
-  int minDistance;
-  //int minDistance = initialPosition - cylinders[0]->location;
-  int index = 0;
-  vector<Cylinder*> temp_cylinders;
-  copy(cylinders.begin(), cylinders.begin() + cylinders.size(), temp_cylinders.begin());
-  index = getMinDistance(temp_cylinders, currentLocation);
-  minDistance = abs(currentLocation - temp_cylinders[index]->location);
+  int nextLocationIndex = 0;
+  int minDistance = abs(initialPosition - cylinders[0]->location);
+
+  for(unsigned int i = 0; i < cylinders.size(); i++) {
+    for(unsigned int j = 0; j < cylinders.size(); j++) {
+      if((currentLocation - cylinders[j]->location) && minDistance > abs(currentLocation - cylinders[j]->location)) {
+        minDistance = abs(currentLocation - cylinders[j]->location);
+        nextLocationIndex = j;
+      }
+    }
+    currentLocation = cylinders[nextLocationIndex]->location;
+    cylinders.erase(cylinders.begin() + nextLocationIndex);
+    numSSTF += minDistance;
+  }
 }
