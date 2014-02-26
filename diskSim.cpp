@@ -37,10 +37,22 @@ void generateSequenceFile() {
 }
 
 void readSequenceFile(string file) {
+  FILE *sequence;
+  int location;
 
+  if (((sequence = fopen(file.c_str(),"r")) == NULL)) {
+    cout << "Invalid reference sequence file." << endl;
+    exit(EXIT_FAILURE);
+  }
+
+  while (fscanf(sequence, "%d", &location) > 0 || !feof(sequence)) {
+    cylinders.push_back(new Cylinder(location));
+  }
+  fclose(sequence);
 }
 
 void print() {
+  printf("#for initial position of %d\n", initialPosition);
   printf("FCFS %d\nSSTF %d\nSCAN %d\nC-SCAN %d\nLOOK %d\nC-LOOK %d\n",
    numFCFS, numSSTF, numSCAN, numCSCAN, numLOOK, numCLOOK);
 }
