@@ -31,7 +31,7 @@ string generateSequenceFile() {
   return "";
 }
 
-void readSequenceFile() {
+void readSequenceFile(string file) {
 
 }
 
