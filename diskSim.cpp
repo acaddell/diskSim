@@ -4,7 +4,7 @@ using namespace std;
 
 int main(int argc, char** argv) {
   parseCommandLine(argc, argv);
-  readSequenceFile(sequenceFile);
+  
   print();
   return 0;
 }
@@ -13,12 +13,13 @@ void parseCommandLine(int argc, char* argv[]) {
   switch(argc){
     case 2:
       initialPosition = strtol(argv[1], NULL, STRTOL_BASE);
-      sequenceFile = generateSequenceFile();
+      generateSequenceFile();
       break;
 
     case 3:
       initialPosition = strtol(argv[1], NULL, STRTOL_BASE);
       sequenceFile = argv[2];
+      readSequenceFile(sequenceFile);
       break;
 
     default:
@@ -27,11 +28,12 @@ void parseCommandLine(int argc, char* argv[]) {
   }
 }
 
-string generateSequenceFile() {
+void generateSequenceFile() {
+  cylinders.push_back(new Address());
   for(int i = 0; i < DEFAULT_SEQUENCE_LENGTH; i++) {
-    
+    cylinders[i].location = rand() % DISK_SIZE;
+    cylinders.push_back(new Address());
   }
-  return "";
 }
 
 void readSequenceFile(string file) {

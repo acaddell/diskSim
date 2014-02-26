@@ -2,11 +2,15 @@
 #define DISKSIM_H
 
 #include <iostream>
+#include <fstream>
 #include <cstring>
+#include <string>
+#include <vector>
 #include <stdlib.h>
 
 #define STRTOL_BASE 10
 #define DEFAULT_SEQUENCE_LENGTH 500
+#define DISK_SIZE 5000
 
 class Cylinder {
   public:
@@ -30,7 +34,7 @@ int numLOOK;
 int numCLOOK;
 
 extern void parseCommandLine(int argc, char* argv[]);
-extern std::string generateSequenceFile();
+extern void generateSequenceFile();
 extern void readSequenceFile(std::string file);
 extern void runFCFS();
 extern void runSSTF();
