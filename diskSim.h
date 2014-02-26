@@ -43,6 +43,8 @@ extern void runSCAN();
 extern void runCSCAN();
 extern void runLOOK();
 extern void runCLOOK();
+extern std::vector<Cylinder*> copyCylinders();
+extern int scanInDirection(std::vector<Cylinder*> temp_cylinders, int direction, int position);
 extern void print();
 
 #endif
