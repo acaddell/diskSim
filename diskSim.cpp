@@ -65,7 +65,7 @@ void print() {
    numFCFS, numSSTF, numSCAN, numCSCAN, numLOOK, numCLOOK);
 }
 
-/* Need to stop it from continuously going between the two closest intervals */
+/* Need to remove elements that have already been visited from the vector */
 void runSSTF() {
   int currentLocation = initialPosition;
   int nextLocationIndex = 0;
@@ -80,5 +80,6 @@ void runSSTF() {
     }
     currentLocation = cylinders[nextLocationIndex]->location;
     numSSTF += minDistance;
+    minDistance = DISK_SIZE;
   }
 }
