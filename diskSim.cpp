@@ -5,6 +5,7 @@ using namespace std;
 int main(int argc, char** argv) {
   parseCommandLine(argc, argv);
   runFCFS();
+  runSSTF();
   print();
   return 0;
 }
@@ -67,7 +68,7 @@ void print() {
 void runSSTF() {
   int currentLocation = initialPosition;
   int nextLocationIndex = 0;
-  int minDistance = initialPosition - cylinders[0]->location;
+  int minDistance = abs(initialPosition - cylinders[0]->location);
 
   for(unsigned int i = 0; i < cylinders.size(); i++) {
     for(unsigned int j = 0; j < cylinders.size(); j++) {
