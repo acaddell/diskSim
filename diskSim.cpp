@@ -30,8 +30,7 @@ void parseCommandLine(int argc, char* argv[]) {
 
 void generateSequenceFile() {
   for(int i = 0; i < DEFAULT_SEQUENCE_LENGTH; i++) {
-    cylinders.push_back(new Cylinder(0));
-    cylinders[i]->location = rand() % DISK_SIZE;
+    cylinders.push_back(new Cylinder(rand() % DISK_SIZE));
   }
 }
 
@@ -67,11 +66,18 @@ void print() {
 
 void runSSTF() {
   int currentLocation = initialPosition;
+  int nextLocationIndex = 0;
   int minDistance = initialPosition - cylinders[0]->location;
 
-  for(unsigned int i = 1; i < cylinders.size(); i++) {
-    if(minDistance > abs(currentLocation - cylinders[i]->location)) {
-      minDistance = abs(currentLocation - cylinders[i]->location);
+  for(unsigned int i = 0; i < cylinders.size(); i++) {
+    for(unsigned int j = 0; j < cylinders.size(); j++) {
+      if((currentLocation - cylinders[j]->location) && minDistance > abs(currentLocation - cylinders[j]->location)) {
+        minDistance = abs(currentLocation - cylinders[j]->location);
+        nextLocationIndex = j;
+      }
     }
+    currentLocation = cylinders[nextLocationIndex]->location;
+    cylinders.erase(cylinders.begin() + nextLocationIndex);
+    numSSTF += minDistance;
   }
 }
