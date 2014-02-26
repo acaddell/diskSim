@@ -65,6 +65,7 @@ void print() {
    numFCFS, numSSTF, numSCAN, numCSCAN, numLOOK, numCLOOK);
 }
 
+/* Need to stop it from continuously going between the two closest intervals */
 void runSSTF() {
   int currentLocation = initialPosition;
   int nextLocationIndex = 0;
@@ -78,7 +79,6 @@ void runSSTF() {
       }
     }
     currentLocation = cylinders[nextLocationIndex]->location;
-    cylinders.erase(cylinders.begin() + nextLocationIndex);
     numSSTF += minDistance;
   }
 }
