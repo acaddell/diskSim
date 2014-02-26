@@ -67,11 +67,11 @@ void print() {
 
 void runSSTF() {
   int currentLocation = initialPosition;
-  int minDistance = initialPosition - cylinders[0].location;
+  int minDistance = initialPosition - cylinders[0]->location;
 
-  for(int i = 1; i < cylinders.size(); i++) {
-    if(minDistance > abs(currentLocation - cylinders[i].location)) {
-      minDistance = abs(currentLocation - cylinders[i].location);
+  for(unsigned int i = 1; i < cylinders.size(); i++) {
+    if(minDistance > abs(currentLocation - cylinders[i]->location)) {
+      minDistance = abs(currentLocation - cylinders[i]->location);
     }
   }
 }
