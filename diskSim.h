@@ -4,6 +4,7 @@
 #include <iostream>
 #include <cstring>
 #include <stdlib.h>
+#include <vector>
 
 #define STRTOL_BASE 10
 #define DEFAULT_SEQUENCE_LENGTH 500
@@ -31,7 +32,7 @@ int numCLOOK;
 
 extern void parseCommandLine(int argc, char* argv[]);
 extern std::string generateSequenceFile();
-extern void readSequenceFile(std::string file);
+extern void readSequenceFile(std::string file); // parses file and creates cylinders
 extern void runFCFS();
 extern void runSSTF();
 extern void runSCAN();
