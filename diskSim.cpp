@@ -4,7 +4,8 @@ using namespace std;
 
 int main(int argc, char** argv) {
   parseCommandLine(argc, argv);
-
+  readSequenceFile(sequenceFile);
+  print();
   return 0;
 }
 
@@ -28,4 +29,13 @@ void parseCommandLine(int argc, char* argv[]) {
 
 string generateSequenceFile() {
   
+}
+
+void readSequenceFile() {
+
+}
+
+void print() {
+  printf("FCFS %d\nSSTF %d\nSCAN %d\nC-SCAN %d\nLOOK %d\nC-LOOK %d\n",
+   numFCFS, numSSTF, numSCAN, numCSCAN, numLOOK, numCLOOK);
 }
