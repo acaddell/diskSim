@@ -13,7 +13,7 @@ void parseCommandLine(int argc, char* argv[]) {
   switch(argc){
     case 2:
       initialPosition = strtol(argv[1], NULL, STRTOL_BASE);
-      generateSequenceFile();
+      populateCylinders();
       break;
 
     case 3:
@@ -28,10 +28,9 @@ void parseCommandLine(int argc, char* argv[]) {
   }
 }
 
-void generateSequenceFile() {
+void populateCylinders() {
   for(int i = 0; i < DEFAULT_SEQUENCE_LENGTH; i++) {
-    cylinders.push_back(new Cylinder(0));
-    cylinders[i]->location = rand() % DISK_SIZE;
+    cylinders.push_back(new Cylinder(rand() % DISK_SIZE));
   }
 }
 
@@ -65,13 +64,25 @@ void print() {
    numFCFS, numSSTF, numSCAN, numCSCAN, numLOOK, numCLOOK);
 }
 
-void runSSTF() {
-  int currentLocation = initialPosition;
-  int minDistance = initialPosition - cylinders[0]->location;
-
-  for(unsigned int i = 1; i < cylinders.size(); i++) {
-    if(minDistance > abs(currentLocation - cylinders[i]->location)) {
-      minDistance = abs(currentLocation - cylinders[i]->location);
+int getMinDistance(vector<Cylinder*> temp_cylinders, int currentLocation) {
+  int minDistance = currentLocation - temp_cylinders[0]->location;
+  int index = 0;
+  for(unsigned int i = 1; i < temp_cylinders.size(); i++) {
+    if(minDistance > abs(currentLocation - temp_cylinders[i]->location)) {
+      minDistance = abs(currentLocation - temp_cylinders[i]->location);
+      index = i;
     }
   }
+  return index;
+}
+
+void runSSTF() {
+  int currentLocation = initialPosition;
+  int minDistance;
+  //int minDistance = initialPosition - cylinders[0]->location;
+  int index = 0;
+  vector<Cylinder*> temp_cylinders;
+  copy(cylinders.begin(), cylinders.begin() + cylinders.size(), temp_cylinders.begin());
+  index = getMinDistance(temp_cylinders, currentLocation);
+  minDistance = abs(currentLocation - temp_cylinders[index]->location);
 }

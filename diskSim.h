@@ -35,7 +35,7 @@ int numLOOK;
 int numCLOOK;
 
 extern void parseCommandLine(int argc, char* argv[]);
-extern void generateSequenceFile();
+extern void populateCylinders();
 extern void readSequenceFile(std::string file); // parses file and creates cylinders
 extern void runFCFS();
 extern void runSSTF();
