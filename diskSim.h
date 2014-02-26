@@ -6,6 +6,7 @@
 #include <stdlib.h>
 
 #define STRTOL_BASE 10
+#define DEFAULT_SEQUENCE_LENGTH 500
 
 class Cylinder {
   public:
@@ -17,6 +18,7 @@ class Cylinder {
     int location;
 };
 
+std::vector<Cylinder*> cylinders;
 int initialPosition; // initial position of disk arm
 std::string sequenceFile; // name of access sequence file (optional)
 // distance traveled for each algorithm

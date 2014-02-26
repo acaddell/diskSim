@@ -28,6 +28,9 @@ void parseCommandLine(int argc, char* argv[]) {
 }
 
 string generateSequenceFile() {
+  for(int i = 0; i < DEFAULT_SEQUENCE_LENGTH; i++) {
+    
+  }
   return "";
 }
 
