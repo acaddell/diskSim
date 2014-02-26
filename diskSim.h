@@ -7,7 +7,6 @@
 #include <string>
 #include <vector>
 #include <stdlib.h>
-#include <vector>
 
 #define STRTOL_BASE 10
 #define DEFAULT_SEQUENCE_LENGTH 500
