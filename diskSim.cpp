@@ -64,3 +64,14 @@ void print() {
   printf("FCFS %d\nSSTF %d\nSCAN %d\nC-SCAN %d\nLOOK %d\nC-LOOK %d\n",
    numFCFS, numSSTF, numSCAN, numCSCAN, numLOOK, numCLOOK);
 }
+
+void runSSTF() {
+  int currentLocation = initialPosition;
+  int minDistance = initialPosition - cylinders[0].location;
+
+  for(int i = 1; i < cylinders.size(); i++) {
+    if(minDistance > abs(currentLocation - cylinders[i].location)) {
+      minDistance = abs(currentLocation - cylinders[i].location);
+    }
+  }
+}
