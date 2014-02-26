@@ -15,8 +15,8 @@
 
 class Cylinder {
   public:
-    Cylinder(int location) {
-      location = 0;
+    Cylinder(int new_loc) {
+      location = new_loc;
     }
     ~Cylinder() { }
 
