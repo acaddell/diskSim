@@ -28,7 +28,7 @@ void parseCommandLine(int argc, char* argv[]) {
 }
 
 string generateSequenceFile() {
-  
+  return "";
 }
 
 void readSequenceFile() {
