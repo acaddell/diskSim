@@ -5,8 +5,9 @@
 #include <fstream>
 #include <cstring>
 #include <string>
-#include <vector>
 #include <stdlib.h>
+#include <vector>
+#include <cmath>
 
 #define STRTOL_BASE 10
 #define DEFAULT_SEQUENCE_LENGTH 500
