@@ -12,6 +12,8 @@
 #define STRTOL_BASE 10
 #define DEFAULT_SEQUENCE_LENGTH 500
 #define DISK_SIZE 5000
+#define GOING_UP 1
+#define GOING_DOWN -1
 
 class Cylinder {
   public:

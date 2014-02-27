@@ -43,7 +43,7 @@ void readSequenceFile(string file) {
   FILE *sequence;
   int location;
 
-  if (((sequence = fopen(file.c_str(),"r")) == NULL)) {
+  if ((sequence = fopen(file.c_str(),"r")) == NULL) {
     cout << "Invalid reference sequence file." << endl;
     exit(EXIT_FAILURE);
   }
@@ -136,11 +136,11 @@ void runSCAN() {
   vector<Cylinder*> temp_cylinders = copyCylinders();
 
   if (initialPosition > 0) {
-    distance += scanInDirection(temp_cylinders, 1, initialPosition);
-    distance += scanInDirection(temp_cylinders, -1, DISK_SIZE-2);
+    distance += scanInDirection(temp_cylinders, GOING_UP, initialPosition);
+    distance += scanInDirection(temp_cylinders, GOING_DOWN, DISK_SIZE-2);
   } else {
-    distance += scanInDirection(temp_cylinders, -1, initialPosition);
-    distance += scanInDirection(temp_cylinders, 1, 1);
+    distance += scanInDirection(temp_cylinders, GOING_DOWN, initialPosition);
+    distance += scanInDirection(temp_cylinders, GOING_UP, 1);
   }
   numSCAN = distance;
 }
@@ -150,11 +150,11 @@ void runCSCAN() {
   vector<Cylinder*> temp_cylinders = copyCylinders();
 
   if (initialPosition > 0) {
-    distance += scanInDirection(temp_cylinders, 1, initialPosition);
-    distance += scanInDirection(temp_cylinders, 1, 0);
+    distance += scanInDirection(temp_cylinders, GOING_UP, initialPosition);
+    distance += scanInDirection(temp_cylinders, GOING_UP, 0);
   } else {
-    distance += scanInDirection(temp_cylinders, -1, initialPosition);
-    distance += scanInDirection(temp_cylinders, -1, DISK_SIZE-1);
+    distance += scanInDirection(temp_cylinders, GOING_DOWN, initialPosition);
+    distance += scanInDirection(temp_cylinders, GOING_DOWN, DISK_SIZE-1);
   }
   numCSCAN = distance;
 }
@@ -164,11 +164,11 @@ void runLOOK() {
   vector<Cylinder*> temp_cylinders = copyCylinders();
 
   if (initialPosition > 0) {
-    distance += lookInDirection(temp_cylinders, 1, initialPosition);
-    distance += lookInDirection(temp_cylinders, -1, DISK_SIZE-2);
+    distance += lookInDirection(temp_cylinders, GOING_UP, initialPosition);
+    distance += lookInDirection(temp_cylinders, GOING_DOWN, DISK_SIZE-2);
   } else {
-    distance += lookInDirection(temp_cylinders, -1, initialPosition);
-    distance += lookInDirection(temp_cylinders, 1, 1);
+    distance += lookInDirection(temp_cylinders, GOING_DOWN, initialPosition);
+    distance += lookInDirection(temp_cylinders, GOING_UP, 1);
   }
   numLOOK = distance;
 }
@@ -178,11 +178,11 @@ void runCLOOK() {
   vector<Cylinder*> temp_cylinders = copyCylinders();
 
   if (initialPosition > 0) {
-    distance += lookInDirection(temp_cylinders, 1, initialPosition);
-    distance += lookInDirection(temp_cylinders, 1, 0);
+    distance += lookInDirection(temp_cylinders, GOING_UP, initialPosition);
+    distance += lookInDirection(temp_cylinders, GOING_UP, 0);
   } else {
-    distance += lookInDirection(temp_cylinders, -1, initialPosition);
-    distance += lookInDirection(temp_cylinders, -1, DISK_SIZE-1);
+    distance += lookInDirection(temp_cylinders, GOING_DOWN, initialPosition);
+    distance += lookInDirection(temp_cylinders, GOING_DOWN, DISK_SIZE-1);
   }
   numCLOOK = distance;
 }
