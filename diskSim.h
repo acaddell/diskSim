@@ -45,6 +45,9 @@ extern void runLOOK();
 extern void runCLOOK();
 extern std::vector<Cylinder*> copyCylinders();
 extern int scanInDirection(std::vector<Cylinder*> temp_cylinders, int direction, int position);
+extern int lookInDirection(std::vector<Cylinder*> temp_cylinders, int direction, int position);
+extern int getMax(std::vector<Cylinder*> temp_cylinders);
+extern int getMin(std::vector<Cylinder*> temp_cylinders);
 extern void print();
 
 #endif

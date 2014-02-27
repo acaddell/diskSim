@@ -93,6 +93,44 @@ vector<Cylinder*> copyCylinders() {
   return temp_cylinders;
 }
 
+int getMin(vector<Cylinder*> temp_cylinders) {
+  int min = DISK_SIZE;
+  for (unsigned int i = 0; i < temp_cylinders.size(); i++) {
+    if (temp_cylinders[i]->location < min) {
+      min = temp_cylinders[i]->location;
+    }
+  }
+  return min;
+}
+
+int getMax(vector<Cylinder*> temp_cylinders) {
+  int max = 0;
+  for (unsigned int i = 0; i < temp_cylinders.size(); i++) {
+    if (temp_cylinders[i]->location > max) {
+      max = temp_cylinders[i]->location;
+    }
+  }
+  return max;
+}
+
+int lookInDirection(vector<Cylinder*> temp_cylinders, int direction, int position) {
+  int distance = 0;
+  int max = getMax(temp_cylinders);
+  int min = getMin(temp_cylinders);
+
+  while (position >= min && position < max && temp_cylinders.size() > 0) {
+    position += direction;
+    distance++;
+    for (unsigned int i = 0; i < temp_cylinders.size(); i++) {
+      if (temp_cylinders[i]->location == position) {
+        temp_cylinders.erase(temp_cylinders.begin() + i);
+        i--;
+      }
+    }
+  }
+  return distance;
+}
+
 void runSCAN() {
   int distance = 0;
   vector<Cylinder*> temp_cylinders = copyCylinders();
@@ -108,11 +146,31 @@ void runSCAN() {
 }
 
 void runCSCAN() {
+  int distance = 0;
+  vector<Cylinder*> temp_cylinders = copyCylinders();
 
+  if (initialPosition > 0) {
+    distance += scanInDirection(temp_cylinders, 1, initialPosition);
+    distance += scanInDirection(temp_cylinders, 1, 0);
+  } else {
+    distance += scanInDirection(temp_cylinders, -1, initialPosition);
+    distance += scanInDirection(temp_cylinders, -1, DISK_SIZE-1);
+  }
+  numSCAN = distance;
 }
 
 void runLOOK() {
+  int distance = 0;
+  vector<Cylinder*> temp_cylinders = copyCylinders();
 
+  if (initialPosition > 0) {
+    distance += lookInDirection(temp_cylinders, 1, initialPosition);
+    distance += lookInDirection(temp_cylinders, -1, DISK_SIZE-2);
+  } else {
+    distance += lookInDirection(temp_cylinders, -1, initialPosition);
+    distance += lookInDirection(temp_cylinders, 1, 1);
+  }
+  numLOOK = distance;
 }
 
 void runCLOOK() {
