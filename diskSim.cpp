@@ -156,7 +156,7 @@ void runCSCAN() {
     distance += scanInDirection(temp_cylinders, -1, initialPosition);
     distance += scanInDirection(temp_cylinders, -1, DISK_SIZE-1);
   }
-  numSCAN = distance;
+  numCSCAN = distance;
 }
 
 void runLOOK() {
@@ -174,7 +174,17 @@ void runLOOK() {
 }
 
 void runCLOOK() {
+  int distance = 0;
+  vector<Cylinder*> temp_cylinders = copyCylinders();
 
+  if (initialPosition > 0) {
+    distance += lookInDirection(temp_cylinders, 1, initialPosition);
+    distance += lookInDirection(temp_cylinders, 1, 0);
+  } else {
+    distance += lookInDirection(temp_cylinders, -1, initialPosition);
+    distance += lookInDirection(temp_cylinders, -1, DISK_SIZE-1);
+  }
+  numCLOOK = distance;
 }
 
 /* Need to remove elements that have already been visited from the vector */
