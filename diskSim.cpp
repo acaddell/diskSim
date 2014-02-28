@@ -176,25 +176,36 @@ int cLookInDirection(vector<Cylinder*> temp_cylinders, int direction, int positi
     distance++;
     for (unsigned int i = 0; i < temp_cylinders.size(); i++) {
       if (temp_cylinders[i]->location == position) {
-        printf("removing: %d %d\n", temp_cylinders[i]->location, direction);
+        printf("removing: %d %d %d\n", temp_cylinders[i]->location, direction, distance);
         temp_cylinders.erase(temp_cylinders.begin() + i);
         i--;
       }
     }
   }
-  if (direction == GOING_DOWN) {
-    distance += abs(max - position);
+  if (direction == GOING_DOWN && temp_cylinders.size() > 0) {
+    distance += abs(max - position)+1;
     position = max-1;
-  } else {
+    for (unsigned int i = 0; i < temp_cylinders.size(); i++) {
+      if (temp_cylinders[i]->location == max) {
+        temp_cylinders.erase(temp_cylinders.begin() + i);
+        i--;
+      }
+    }
+  } else if (temp_cylinders.size() > 0) {
     distance += abs(min - position);
     position = min;
+    for (unsigned int i = 0; i < temp_cylinders.size(); i++) {
+      if (temp_cylinders[i]->location == min) {
+        temp_cylinders.erase(temp_cylinders.begin() + i);
+        i--;
+      }
+    }
   }
   while (position >= min && position < max && temp_cylinders.size() > 0) {
     position += direction;
     distance++;
     for (unsigned int i = 0; i < temp_cylinders.size(); i++) {
       if (temp_cylinders[i]->location == position) {
-        printf("removing: %d %d\n", temp_cylinders[i]->location, direction);
         temp_cylinders.erase(temp_cylinders.begin() + i);
         i--;
       }
