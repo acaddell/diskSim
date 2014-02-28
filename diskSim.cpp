@@ -69,15 +69,16 @@ void runFCFS() {
   numFCFS = distance;
 }
 
-int scanInDirection(vector<Cylinder*> temp_cylinders, int direction, int position) {
+int scanInDirection(vector<Cylinder*> *temp_cylinders, int direction, int position) {
   int distance = 0;
+  vector<Cylinder*> temp = *temp_cylinders;
 
-  while (position >= 0 && position < DISK_SIZE && temp_cylinders.size() > 0) {
+  while (position >= 0 && position < DISK_SIZE && (*temp_cylinders).size() > 0) {
     position += direction;
     distance++;
-    for (unsigned int i = 0; i < temp_cylinders.size(); i++) {
-      if (temp_cylinders[i]->location == position) {
-        temp_cylinders.erase(temp_cylinders.begin() + i);
+    for (unsigned int i = 0; i < (*temp_cylinders).size(); i++) {
+      if ((*temp_cylinders)[i]->location == position) {
+        (*temp_cylinders).erase((*temp_cylinders).begin() + i);
         i--;
       }
     }
@@ -176,7 +177,6 @@ int cLookInDirection(vector<Cylinder*> temp_cylinders, int direction, int positi
     distance++;
     for (unsigned int i = 0; i < temp_cylinders.size(); i++) {
       if (temp_cylinders[i]->location == position) {
-        printf("removing: %d %d %d\n", temp_cylinders[i]->location, direction, distance);
         temp_cylinders.erase(temp_cylinders.begin() + i);
         i--;
       }
@@ -219,11 +219,11 @@ void runSCAN() {
   vector<Cylinder*> temp_cylinders = copyCylinders();
 
   if (initialPosition > 0) {
-    distance += scanInDirection(temp_cylinders, GOING_UP, initialPosition);
-    distance += scanInDirection(temp_cylinders, GOING_DOWN, DISK_SIZE-2);
+    distance += scanInDirection(&temp_cylinders, GOING_UP, initialPosition);
+    distance += scanInDirection(&temp_cylinders, GOING_DOWN, DISK_SIZE-2);
   } else {
-    distance += scanInDirection(temp_cylinders, GOING_DOWN, initialPosition);
-    distance += scanInDirection(temp_cylinders, GOING_UP, 1);
+    distance += scanInDirection(&temp_cylinders, GOING_DOWN, initialPosition);
+    distance += scanInDirection(&temp_cylinders, GOING_UP, 1);
   }
   numSCAN = distance;
 }
@@ -233,17 +233,17 @@ void runCSCAN() {
   vector<Cylinder*> temp_cylinders = copyCylinders();
 
   if (initialPosition > 0) {
-    distance += scanInDirection(temp_cylinders, GOING_UP, initialPosition);
+    distance += scanInDirection(&temp_cylinders, GOING_UP, initialPosition);
     if (temp_cylinders.size() > 0) {
-      distance += DISK_SIZE-1;
+      distance += DISK_SIZE-2;
     }
-    distance += scanInDirection(temp_cylinders, GOING_UP, 0);
+    distance += scanInDirection(&temp_cylinders, GOING_UP, 0);
   } else {
-    distance += scanInDirection(temp_cylinders, GOING_DOWN, initialPosition);
+    distance += scanInDirection(&temp_cylinders, GOING_DOWN, initialPosition);
     if (temp_cylinders.size() > 0) {
-      distance += DISK_SIZE-1;
+      distance += DISK_SIZE-2;
     }
-    distance += scanInDirection(temp_cylinders, GOING_DOWN, DISK_SIZE-1);
+    distance += scanInDirection(&temp_cylinders, GOING_DOWN, DISK_SIZE-1);
   }
   numCSCAN = distance;
 }
