@@ -118,11 +118,83 @@ int lookInDirection(vector<Cylinder*> temp_cylinders, int direction, int positio
   int max = getMax(temp_cylinders);
   int min = getMin(temp_cylinders);
 
+  if (position >= max && temp_cylinders.size() > 0) {
+    distance += abs(max - position);
+    position = max-1;
+  } else if (position < min && temp_cylinders.size() > 0) {
+    distance += abs(min - position);
+    position = min;
+  }
+
   while (position >= min && position < max && temp_cylinders.size() > 0) {
     position += direction;
     distance++;
     for (unsigned int i = 0; i < temp_cylinders.size(); i++) {
       if (temp_cylinders[i]->location == position) {
+        temp_cylinders.erase(temp_cylinders.begin() + i);
+        i--;
+      }
+    }
+  }
+  distance++;
+  direction *= -1;
+  if (position >= max && temp_cylinders.size() > 0) {
+    distance += abs(max - position);
+    position = max-1;
+  } else if (position < min && temp_cylinders.size() > 0) {
+    distance += abs(min - position);
+    position = min;
+  }
+  while (position >= min && position < max && temp_cylinders.size() > 0) {
+    position += direction;
+    distance++;
+    for (unsigned int i = 0; i < temp_cylinders.size(); i++) {
+      if (temp_cylinders[i]->location == position) {
+        temp_cylinders.erase(temp_cylinders.begin() + i);
+        i--;
+      }
+    }
+  }
+  return distance;
+}
+
+int cLookInDirection(vector<Cylinder*> temp_cylinders, int direction, int position) {
+  int distance = 0;
+  int max = getMax(temp_cylinders);
+  int min = getMin(temp_cylinders);
+
+  if (position >= max && temp_cylinders.size() > 0) {
+    distance += abs(max - position);
+    position = max-1;
+  } else if (position < min && temp_cylinders.size() > 0) {
+    distance += abs(min - position);
+    position = min;
+  }
+
+  while (position >= min && position < max && temp_cylinders.size() > 0) {
+    position += direction;
+    distance++;
+    for (unsigned int i = 0; i < temp_cylinders.size(); i++) {
+      if (temp_cylinders[i]->location == position) {
+        printf("removing: %d %d\n", temp_cylinders[i]->location, direction);
+        temp_cylinders.erase(temp_cylinders.begin() + i);
+        i--;
+      }
+    }
+  }
+  if (direction == GOING_DOWN) {
+    distance += abs(max - position);
+    position = max-1;
+  } else {
+    distance += abs(min - position);
+    position = min;
+  }
+  while (position >= min && position < max && temp_cylinders.size() > 0) {
+    position += direction;
+    distance++;
+    for (unsigned int i = 0; i < temp_cylinders.size(); i++) {
+      if (temp_cylinders[i]->location == position) {
+        printf("removing: %d %d\n", temp_cylinders[i]->location, direction);
         temp_cylinders.erase(temp_cylinders.begin() + i);
         i--;
       }
@@ -151,9 +223,15 @@ void runCSCAN() {
 
   if (initialPosition > 0) {
     distance += scanInDirection(temp_cylinders, GOING_UP, initialPosition);
+    if (temp_cylinders.size() > 0) {
+      distance += DISK_SIZE-1;
+    }
     distance += scanInDirection(temp_cylinders, GOING_UP, 0);
   } else {
     distance += scanInDirection(temp_cylinders, GOING_DOWN, initialPosition);
+    if (temp_cylinders.size() > 0) {
+      distance += DISK_SIZE-1;
+    }
     distance += scanInDirection(temp_cylinders, GOING_DOWN, DISK_SIZE-1);
   }
   numCSCAN = distance;
@@ -165,10 +243,10 @@ void runLOOK() {
 
   if (initialPosition > 0) {
     distance += lookInDirection(temp_cylinders, GOING_UP, initialPosition);
-    distance += lookInDirection(temp_cylinders, GOING_DOWN, DISK_SIZE-2);
+    //distance += lookInDirection(temp_cylinders, GOING_DOWN, DISK_SIZE-2);
   } else {
     distance += lookInDirection(temp_cylinders, GOING_DOWN, initialPosition);
-    distance += lookInDirection(temp_cylinders, GOING_UP, 1);
+    //distance += lookInDirection(temp_cylinders, GOING_UP, 1);
   }
   numLOOK = distance;
 }
@@ -178,11 +256,11 @@ void runCLOOK() {
   vector<Cylinder*> temp_cylinders = copyCylinders();
 
   if (initialPosition > 0) {
-    distance += lookInDirection(temp_cylinders, GOING_UP, initialPosition);
-    distance += lookInDirection(temp_cylinders, GOING_UP, 0);
+    distance += cLookInDirection(temp_cylinders, GOING_UP, initialPosition);
+    //distance += cLookInDirection(temp_cylinders, GOING_UP, 0);
   } else {
-    distance += lookInDirection(temp_cylinders, GOING_DOWN, initialPosition);
-    distance += lookInDirection(temp_cylinders, GOING_DOWN, DISK_SIZE-1);
+    distance += cLookInDirection(temp_cylinders, GOING_DOWN, initialPosition);
+    //distance += cLookInDirection(temp_cylinders, GOING_DOWN, DISK_SIZE-1);
   }
   numCLOOK = distance;
 }

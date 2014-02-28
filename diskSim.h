@@ -10,7 +10,7 @@
 #include <cmath>
 
 #define STRTOL_BASE 10
-#define DEFAULT_SEQUENCE_LENGTH 500
+#define DEFAULT_SEQUENCE_LENGTH 100
 #define DISK_SIZE 5000
 #define GOING_UP 1
 #define GOING_DOWN -1
@@ -50,6 +50,8 @@ extern std::vector<Cylinder*> copyCylinders(); // creates a new copy of the cyli
 extern int scanInDirection(std::vector<Cylinder*> temp_cylinders, int direction, int position);
 // runs the look algorithm and returns the distance traveled from position
 extern int lookInDirection(std::vector<Cylinder*> temp_cylinders, int direction, int position);
+// runs the clook algorithm and returns the distance traveled from position
+extern int cLookInDirection(std::vector<Cylinder*> temp_cylinders, int direction, int position);
 // gets the maximum position from a given vector for look algorithm
 extern int getMax(std::vector<Cylinder*> temp_cylinders);
 // gets the minimum position from a given vector for look algorithm
