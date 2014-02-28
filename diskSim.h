@@ -50,7 +50,7 @@ extern std::vector<Cylinder*> copyCylinders(); // creates a new copy of the cyli
 // runs the scan algorithm and returns the distance traveled from position
 extern int scanInDirection(std::vector<Cylinder*> *temp_cylinders, int direction, int position);
 // runs the look algorithm and returns the distance traveled from position
-extern int lookInDirection(std::vector<Cylinder*> temp_cylinders, int direction, int position);
+extern int lookInDirection(std::vector<Cylinder*> temp_cylinders, int direction, int position, int max, int min);
 // runs the clook algorithm and returns the distance traveled from position
 extern int cLookInDirection(std::vector<Cylinder*> temp_cylinders, int direction, int position);
 // gets the maximum position from a given vector for look algorithm
