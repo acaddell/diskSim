@@ -187,20 +187,21 @@ void runCLOOK() {
   numCLOOK = distance;
 }
 
-/* Need to remove elements that have already been visited from the vector */
 void runSSTF() {
   int currentLocation = initialPosition;
   int nextLocationIndex = 0;
   int minDistance = abs(initialPosition - cylinders[0]->location);
+  vector<Cylinder*> temp_cylinders = copyCylinders();
 
   for(unsigned int i = 0; i < cylinders.size(); i++) {
-    for(unsigned int j = 0; j < cylinders.size(); j++) {
-      if((currentLocation - cylinders[j]->location) && minDistance > abs(currentLocation - cylinders[j]->location)) {
-        minDistance = abs(currentLocation - cylinders[j]->location);
+    for(unsigned int j = 0; j < temp_cylinders.size(); j++) {
+      if((currentLocation - temp_cylinders[j]->location) && minDistance > abs(currentLocation - temp_cylinders[j]->location)) {
+        minDistance = abs(currentLocation - temp_cylinders[j]->location);
         nextLocationIndex = j;
       }
     }
-    currentLocation = cylinders[nextLocationIndex]->location;
+    currentLocation = temp_cylinders[nextLocationIndex]->location;
+    temp_cylinders.erase(temp_cylinders.begin() + nextLocationIndex);
     numSSTF += minDistance;
     minDistance = DISK_SIZE;
   }
