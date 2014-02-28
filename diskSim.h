@@ -27,6 +27,7 @@ class Cylinder {
 
 std::vector<Cylinder*> cylinders;
 int initialPosition; // initial position of disk arm
+int initialDirection; // initial direction of arm movement
 std::string sequenceFile; // name of access sequence file (optional)
 // distance traveled for each algorithm
 int numFCFS;
