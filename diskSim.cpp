@@ -151,9 +151,11 @@ void runCSCAN() {
 
   if (initialPosition > 0) {
     distance += scanInDirection(temp_cylinders, GOING_UP, initialPosition);
+    distance += DISK_SIZE-1;
     distance += scanInDirection(temp_cylinders, GOING_UP, 0);
   } else {
     distance += scanInDirection(temp_cylinders, GOING_DOWN, initialPosition);
+    distance += DISK_SIZE-1;
     distance += scanInDirection(temp_cylinders, GOING_DOWN, DISK_SIZE-1);
   }
   numCSCAN = distance;
